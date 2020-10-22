@@ -5,23 +5,35 @@
 
 <?php
 
-$html = file_get_contents('https://www.todofp.es/que-como-y-donde-estudiar/que-estudiar/ciclos/grado-medio.html');
-//echo $html;
+$graus_mitjans =array();
+
+
+//WEB SCRAPING
+$html = file_get_contents("https://www.todofp.es/que-como-y-donde-estudiar/que-estudiar/ciclos/grado-medio.html");
 
 $dom = new DOMDocument;
 @$dom->loadHTML($html);
 $dom->preserveWhiteSpace=true; //A la web era false, CAL DESCOBRIR QUÈ FA!
 
-                          
+
+//DATA EXTRACTION
 $tables = $dom->getElementsByTagName('table'); //Tenim una DOMNodeList amb les taules
 $LOEtable = $tables->item(0); //Extraiem la taula LOE, instància de DOMElement
 
 
+//Get the columns titles
+$titlesRow = $LOEtable->getElementsByTagName('thead')->item(0);
+$titles = $titlesRow->getElementsByTagName('th');
 
-$rows = $LOEtable->getElementsByTagName('tr');
+$titlesID = array(); //Where the titles are!
+foreach ($titles as $title) {
+    array_push($titlesID,$title->textContent);
+}
 
-$graus_mitjans =array();
 
+//$rows = $LOEtable->getElementsByTagName('tbody'); //tr funciona
+
+                          /*
 foreach ($rows as $row) {
     $i=0;
     $families = $row->getElementsByTagName('th');
@@ -41,6 +53,7 @@ foreach ($rows as $row) {
     }
     $i++;
 }
+                          */
 ?>
 
 </body>
