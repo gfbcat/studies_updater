@@ -53,21 +53,42 @@ foreach ($rows as $row) {
     $cols = $row->getElementsByTagName('td');
     $col_counter = 0;
     foreach ($cols as $col) {
-        //echo strlen(trim($col->textContent)).'<br><br>';
-        $column = trim($col->textContent);  //Com que només la titulació té texs (els altres són img), això extreu la Titulacio
-        if (strlen($column) == 0) {
+        if ($col_counter == 0) {      // Titulació
+            $titulacio = trim($col->textContent);  
+        }
+        elseif ($col_counter == 3) {  // URL curriculums CCAA
+            $c = $col->getElementsByTagName('a')->item(0);
+            if ($c != NULL) {
+                $url_cv_ccaa = $main_url.$c->getAttribute('href');
+            } else { $url_cv_ccaa = NULL; }
+        }
+        elseif ($col_counter == 5) {  // URL on estudiar
+            $c = $col->getElementsByTagName('a')->item(0);
+            if ($c != NULL) {
+                $url_where = $c->getAttribute('href');
+            } else { $url_where = NULL; }
+        }
+
+        /*else { //if (strlen($column) == 0) {
             $c = $col->getElementsByTagName('img');
-            if ($c->length == 1) {  $column = $c->item(0)->getAttribute('alt');  }
+            if ($c->length == 1) {
+                $column = $c->item(0)->getAttribute('alt');
+            } 
             elseif ($c->length >1) {
                 //foreach ($c as ) {
 
                 //}
-            }
-        }
+            }echo "1---";
+            }*/
         $col_counter++;
 
-        echo $column."<br><br>";
-    }echo "<br><br>";
+        //echo $column."<br><br>";
+    }
+
+    echo $titulacio." ; ".$url_cv_ccaa." ; ".$url_where;
+    echo "<br><br>";
+    
+    
     /*
     $families = $row->getElementsByTagName('th');
     foreach ($families as $f1) {
