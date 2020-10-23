@@ -49,12 +49,12 @@ foreach ($rows as $row) {
     } //else { echo "Same <br><br>"; }
 
 
-    //Titulacio
+    //A aquesta part treiem totes les altres columnes. El col_counter ha de servir per a poder discriminar com tractar o sí tractar cada columna
     $cols = $row->getElementsByTagName('td');
     $col_counter = 0;
     foreach ($cols as $col) {
         //echo strlen(trim($col->textContent)).'<br><br>';
-        $column = trim($col->textContent);
+        $column = trim($col->textContent);  //Com que només la titulació té texs (els altres són img), això extreu la Titulacio
         if (strlen($column) == 0) {
             $c = $col->getElementsByTagName('img');
             if ($c->length == 1) {  $column = $c->item(0)->getAttribute('alt');  }
