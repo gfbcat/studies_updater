@@ -9,8 +9,8 @@ function curl($url) {
     return $info;   //Retorna la informació de la funció
 }
 
-//Testing
+/*/Testing
 $html = curl('https://www.todofp.es/que-como-y-donde-estudiar/que-estudiar/ciclos/grado-medio.html');
 //echo stristr(stristr(stristr($html, "Ciclos LOE"), "Ciclos LOE"), "Ciclos LOE");
-echo $html;
+echo $html;*/
 ?>

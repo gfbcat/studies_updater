@@ -17,6 +17,7 @@ $main_url = "https://www.todofp.es";
 //WEB SCRAPING
 $dom = web_scrap($main_url."/que-como-y-donde-estudiar/que-estudiar/ciclos/grado-medio.html");
 
+//echo var_dump($dom);
 
 //DATA EXTRACTION
 $tables = $dom->getElementsByTagName('table'); //Tenim una DOMNodeList amb les taules
@@ -56,6 +57,7 @@ foreach ($rows as $row) {
             $c = $col->getElementsByTagName('a')->item(0);
             if ($c != NULL) {
                 $url_cv_ccaa = $main_url.$c->getAttribute('href');
+                get_CCAA($url_cv_ccaa);
             } else { $url_cv_ccaa = NULL; }
         }
         elseif ($col_counter == 5) {  // URL on estudiar
@@ -69,6 +71,27 @@ foreach ($rows as $row) {
 
     echo $titlesID[1].": ".$titulacio." ; ".$titlesID[4].": ".$url_cv_ccaa." ; ".$titlesID[6].": ".$url_where;
     echo "<br><br>";
+}
+
+function get_CCAA($url){
+    $dom_obj = web_scrap($url);
+    echo "<br><br>Inside CCAA!!<br><br>";
+    
+    $elem_dump = $dom_obj->getElementsByTagName('div');
+    foreach ($elem_dump as $elem) {
+        $id_elem = $elem->getAttribute('id');
+        if($id_elem == "contenido"){
+            echo "<br><br>Inside CCAA - FOREACH!!  ".var_dump($id_elem)."<br><br>";
+        }
+    }
+    /*echo $id_elem_dump->length;
+    foreach ($id_elem_dump as $id_elem) {
+        //if ($id_elem->getAttribute
+        //echo var_dump($id_elem);
+        echo "<br><br>Inside CCAA - FOREACH!!<br><br>";
+
+    }*/
+    
 }
 
 
