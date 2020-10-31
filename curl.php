@@ -13,3 +13,4 @@ function curl($url) {
 $html = curl('https://www.todofp.es/que-como-y-donde-estudiar/que-estudiar/ciclos/grado-medio.html');
 //echo stristr(stristr(stristr($html, "Ciclos LOE"), "Ciclos LOE"), "Ciclos LOE");
 echo $html;
+?>
